@@ -1,60 +1,33 @@
-# File 1: create_dataset.py
-import os
-import tensorflow as tf
-import mediapipe as mp
-import cv2
-from multiprocessing import Pool
 import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
 
-mp_hands = mp.solutions.hands
-hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)
+# Load the dataset you created
+data = np.load("sign_language_dataset.npz")
+X_train = data['data']
+y_train = data['labels']
 
-DATA_DIR = './data'
+# Reshape the data for the model (assuming 42 features per hand)
+X_train = X_train.reshape(X_train.shape[0], 42)
 
-def process_image(args):
-    dir_, img_path = args
-    data_aux = []
-    x_ = []
-    y_ = []
+# One-hot encode the labels (if necessary)
+# You might need to adjust this based on the format of your labels
+from tensorflow.keras.utils import to_categorical
+y_train_encoded = to_categorical(y_train)  # Comment out if labels are already one-hot encoded
 
-    img = cv2.imread(os.path.join(DATA_DIR, dir_, img_path))
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+# Define the model architecture (simple example)
+model = Sequential()
+model.add(Dense(128, activation='relu', input_shape=(42,)))
+model.add(Dense(64, activation='relu'))
+model.add(Dense(len(set(y_train)), activation='softmax'))  # Adjust for number of unique labels
 
-    results = hands.process(img_rgb)
-    if results.multi_hand_landmarks:
-        for hand_landmarks in results.multi_hand_landmarks:
-            for i in range(len(hand_landmarks.landmark)):
-                x = hand_landmarks.landmark[i].x
-                y = hand_landmarks.landmark[i].y
+# Compile the model (adjust optimizer and loss as needed)
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-                x_.append(x)
-                y_.append(y)
+# Train the model
+model.fit(X_train, y_train_encoded, epochs=10, batch_size=32)
 
-            for i in range(len(hand_landmarks.landmark)):
-                x = hand_landmarks.landmark[i].x
-                y = hand_landmarks.landmark[i].y
-                data_aux.append(x - min(x_))
-                data_aux.append(y - min(y_))
+# Save the trained model (optional)
+model.save('sign_language_model.h5')
 
-        if len(data_aux) == 42:
-            return data_aux, dir_
-    return None
-
-if __name__ == '__main__':
-    data = []
-    labels = []
-
-    img_paths = [(dir_, img_path) for dir_ in os.listdir(DATA_DIR) for img_path in os.listdir(os.path.join(DATA_DIR, dir_))]
-
-    with Pool() as pool:
-        results = pool.map(process_image, img_paths)
-
-    for result in results:
-        if result:
-            data.append(result[0])
-            labels.append(result[1])
-
-    # Export the dataset as .npz file for future use
-    np.savez("sign_language_dataset.npz", data=np.array(data), labels=np.array(labels))
-
-    print("Dataset saved as sign_language_dataset.npz")
+print("Model trained and saved!")
