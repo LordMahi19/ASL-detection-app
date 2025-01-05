@@ -16,3 +16,6 @@ We then convert that to .tflite model to use in our android app. We have also cr
 - OverLayview.kt draws the landmark connections, makes predictions using the TFLiteHelper.kt class and displays the predicted class.
 
 [**Dowload the app**](https://lut-my.sharepoint.com/:u:/g/personal/mahi_talukder_student_lut_fi/EQjG3WvGn7hGttbHXBUil6IB_NdItEkd-Z19qzHSJObz1A?e=jhvUki)
+
+**Sign language charachter:**
+!(/sign.png)
