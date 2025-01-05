@@ -18,4 +18,4 @@ We then convert that to .tflite model to use in our android app. We have also cr
 [**Dowload the app**](https://lut-my.sharepoint.com/:u:/g/personal/mahi_talukder_student_lut_fi/EQjG3WvGn7hGttbHXBUil6IB_NdItEkd-Z19qzHSJObz1A?e=jhvUki)
 
 **Sign language charachter:**
-(signs.png)
+![image](./signs.png)
