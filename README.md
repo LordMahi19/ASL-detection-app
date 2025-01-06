@@ -1,21 +1,43 @@
-# Android app for sign language detection with tensorflow lite
+# Android App for Sign Language Detection with TensorFlow Lite
 
-In this project we have used the same dataset that we use earlier in this [reposiotory](https://github.com/LordMahi19/ASL-detection) to train a model a model to predict sign language charachters and then we made an android app that inferences that model locally using tensorflow light. please see the this [reposiotory](https://github.com/LordMahi19/ASL-detection) first.
+Welcome to the **Sign Language Detection App** project! This application leverages the power of **TensorFlow** to recognize and interpret sign language characters.
 
-We have introduce fundamental changes to achieve our goal. We are using the same technique like before; collecting hand landmarks x and y coordinates and and label of each image to make a dataset and then training a prediction model using that dataset using randorm forrest classifier.
+## Overview
 
-Instead of creating a pickle dataset we have created an npz dataset. And then we have created an .h5 model instead of .p
+In this project, we utilized the dataset from this [repository](https://github.com/LordMahi19/ASL-detection) to train a machine learning model capable of predicting sign language characters. The trained model was then converted to TensorFlow Lite format for efficient deployment on mobile devices. For a comprehensive understanding, please visit the [original repository](https://github.com/LordMahi19/ASL-detection).
 
-We then convert that to .tflite model to use in our android app. We have also created a text file with all the labels written inside of it one label per line in the exact same order as they were during the training.
+## Changes and Improvements
 
-**App making**
+To enhance the performance and usability of our application, we implemented several key changes and improvements:
 
-- We have copied the model.tflite file and the labels.txt file inside the asset folder within our android directory.
-- The HandLandmarkerHelper.kt file processes the images and uses mediapipe to extract hand landmark information.
-- TFLiteHelper.kt loads and sets everyting to inference the model.tflite
-- OverLayview.kt draws the landmark connections, makes predictions using the TFLiteHelper.kt class and displays the predicted class.
+### Key Changes:
 
-[**Dowload the app**](https://lut-my.sharepoint.com/:u:/g/personal/mahi_talukder_student_lut_fi/EQjG3WvGn7hGttbHXBUil6IB_NdItEkd-Z19qzHSJObz1A?e=jhvUki)
+- **Dataset Format**: Transitioned from a pickle dataset to an NPZ dataset for better compatibility and performance.
+- **Model Format**: Developed the model in `.h5` format instead of `.p` for improved functionality.
+- **Model Conversion**: Converted the `.h5` model to `.tflite` format, making it suitable for mobile deployment.
+- **Labels File**: Created a text file containing all the labels, with each label on a new line, maintaining the same order as during training.
 
-**Sign language charachter:**
-![image](./signs.png)
+## Sign Language Characters
+
+Below is a visual representation of the sign language characters recognized by our app:
+
+![Sign Language Characters](./signs.png)
+
+## Getting Started
+
+To get started with the Sign Language Detection App, follow these steps:
+
+1. **Clone the Repository**: Clone the project repository to your local machine.
+
+   ```bash
+   git clone https://github.com/LordMahi19/ASL-detection-app.git
+   ```
+
+2. **Install Dependencies**: Ensure you have all the necessary dependencies installed.
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Contributing
+
+We welcome contributions to enhance the functionality and performance of this app. Feel free to fork the repository, make your changes, and submit a pull request.
