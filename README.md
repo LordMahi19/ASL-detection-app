@@ -1,4 +1,4 @@
-# Android App for Sign Language Detection with TensorFlow Lite
+# Sign Language Detection with TensorFlow
 
 This project is a continuation of this [project](https://github.com/LordMahi19/ASL-detection) where we have this [Dataset](https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset/data) to train a machine learning that predicts sign language charachters using mediapipes handlarmark library. The trained model was then converted to TensorFlow Lite format for efficient deployment on mobile devices. We will make an android app that will use this tensorflow lite to predict the sign language charachters. For a comprehensive understanding, please visit the previous repository: [previous repo](https://github.com/LordMahi19/ASL-detection).
 
